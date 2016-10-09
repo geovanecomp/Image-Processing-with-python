@@ -24,7 +24,7 @@ def transformation(image):
     lines, cols = image.shape #get the quantity of lines and columns of the image
     #s = np.zeros((lines, cols), dtype=np.int) #Create a matrix of zeros in the same dimension of the passed image by parameter -> FAIL
     s = image
-    L = 255 - 1
+    L = 256 - 1
     c = 1
     gama = 0.8
 
