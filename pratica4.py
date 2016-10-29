@@ -18,3 +18,8 @@ transformedImage = np.zeros((P,Q), dtype=np.float32)
 for i in range(M):
     for j in range(N):
         transformedImage[i][j] = originalImage[i][j]
+
+#3º step: Centering the Image---------------------------------------------------
+for i in range(P):
+    for j in range(Q):
+        transformedImage[i][j] = transformedImage[i][j] * (-1)**(i+j)
