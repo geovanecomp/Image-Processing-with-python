@@ -11,3 +11,10 @@ M, N = np.shape(originalImage) #Number of lines and columns
 M, N = np.shape(originalImage)
 P = 2 * M
 Q = 2 * N
+
+#2º step: Building an image with the length of P and Q--------------------------
+transformedImage = np.zeros((P,Q), dtype=np.float32)
+
+for i in range(M):
+    for j in range(N):
+        transformedImage[i][j] = originalImage[i][j]
