@@ -65,3 +65,12 @@ for i in range(P):
 
         filteredDft1[i][j] =  H1[i][j]*dft1[i][j]
         filteredDft2[i][j] =  H2[i][j]*dft2[i][j]
+#6º step: Applying the inverse transform----------------------------------------
+
+img_back1 = np.fft.ifft2(filteredDft1)
+img_back1 = centeringImage(img_back1)
+transformedImage1 = np.zeros((M,N), dtype=np.float32)
+
+img_back2 = np.fft.ifft2(filteredDft2)
+img_back2 = centeringImage(img_back2)
+transformedImage2 = np.zeros((M,N), dtype=np.float32)
