@@ -2,9 +2,13 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+import math
+
+#To not abbreviate big matrices
+np.set_printoptions(threshold='nan')
 
 #0º step: Get the images and change the type
-originalImage = cv2.imread('lua.tif', 0)
+originalImage = cv2.imread('Cameraman.tif', 0)
 originalImage = np.float32(originalImage)
 M, N = np.shape(originalImage) #Number of lines and columns
 
@@ -12,6 +16,14 @@ M, N = np.shape(originalImage) #Number of lines and columns
 M, N = np.shape(originalImage)
 P = 2 * M
 Q = 2 * N
+distance = np.zeros((P,Q), dtype=np.float32)
+H1 = np.zeros((P,Q), dtype=np.float32)
+H2 = np.zeros((P,Q), dtype=np.float32)
+filteredDft1 = np.zeros((P,Q), dtype=np.float32)
+filteredDft2 = np.zeros((P,Q), dtype=np.float32)
+D01 = 50
+D02 = 50
+
 
 #2º step: Building an image with the length of P and Q--------------------------
 transformedImage = np.zeros((P,Q), dtype=np.float32)
@@ -32,16 +44,6 @@ def centeringImage(image):
 transformedImage = centeringImage(transformedImage)
 
 #4º step: FFT calculation-------------------------------------------------------
-dft = cv2.dft(transformedImage, flags = cv2.DFT_COMPLEX_OUTPUT)
+dft1 = np.fft.fft2(transformedImage)
+dft2 = np.fft.fft2(transformedImage)
 #dft_shift = np.fft.fftshift(dft) #(another way) To move the information in the corners to the center in the frequency domain
-magnitude_spectrum = 20*np.log(cv2.magnitude(dft[:,:,0],dft[:,:,1]))
-
-originalImage = np.uint8(originalImage)
-plt.subplot(121),plt.imshow(originalImage, cmap = 'gray')
-plt.title('Input Image'), plt.xticks([]), plt.yticks([])
-plt.subplot(122),plt.imshow(magnitude_spectrum, cmap = 'gray')
-plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
-plt.show()
-
-# cv2.imshow("1º step", transformedImage)
-# cv2.waitKey(0)
