@@ -47,3 +47,21 @@ transformedImage = centeringImage(transformedImage)
 dft1 = np.fft.fft2(transformedImage)
 dft2 = np.fft.fft2(transformedImage)
 #dft_shift = np.fft.fftshift(dft) #(another way) To move the information in the corners to the center in the frequency domain
+#5º step: Apply the filter H: H(i,j)F(i,j)--------------------------------------
+
+#Distance calculation to create the filters
+for i in range(P):
+    for j in range(Q):
+        distance[i][j] = math.sqrt( (i - P/2)**2 + (j - Q/2)**2 )
+
+#Creating the filters and applying then
+for i in range(P):
+    for j in range(Q):
+        if distance[i][j] < D01:
+            H1[i][j] = 1
+
+        if distance[i][j] > D02:
+            H2[i][j] = 1
+
+        filteredDft1[i][j] =  H1[i][j]*dft1[i][j]
+        filteredDft2[i][j] =  H2[i][j]*dft2[i][j]
