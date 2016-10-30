@@ -74,3 +74,40 @@ transformedImage1 = np.zeros((M,N), dtype=np.float32)
 img_back2 = np.fft.ifft2(filteredDft2)
 img_back2 = centeringImage(img_back2)
 transformedImage2 = np.zeros((M,N), dtype=np.float32)
+#7º step: Resize the image------------------------------------------------------
+for i in range(M):
+    for j in range(N):
+        value1 = img_back1[i][j]
+        if value1 > 255:
+            value1 = 255
+
+        if value1 < 0:
+            value1 = 0
+
+        value2 = img_back2[i][j]
+        if value2 > 255:
+            value2 = 255
+
+        if value2 < 0:
+            value2 = 0
+        transformedImage1[i][j] = value1
+        transformedImage2[i][j] = value2
+
+
+#8º step: Showing the results---------------------------------------------------
+transformedImage1 = np.uint8(transformedImage1)
+transformedImage2 = np.uint8(transformedImage2)
+
+plt.figure(1)
+plt.subplot(121),plt.imshow(originalImage, cmap = 'gray')
+plt.title('Imagem de entrada '), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(transformedImage1, cmap = 'gray')
+plt.title('Aplicando passa baixa'), plt.xticks([]), plt.yticks([])
+
+plt.figure(2)
+plt.subplot(121),plt.imshow(originalImage, cmap = 'gray')
+plt.title('Imagem de entrada '), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(transformedImage2, cmap = 'gray')
+plt.title('Aplicando passa alta'), plt.xticks([]), plt.yticks([])
+
+plt.show()
