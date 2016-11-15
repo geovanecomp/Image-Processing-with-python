@@ -103,7 +103,7 @@ def applyMask(image):
             if value > 255:
                 value = 255
 
-            g[x+1][y+1] = value
+            g[x][y] = value
             value = 0
 
     g = deleteRows(g, 2, 0)
@@ -119,8 +119,8 @@ def laplacianFilter(image):
 
     transformedImage = np.zeros(image.shape, dtype=np.float32)
     #I have made the laplacian filter using two forms
-    laplacian = laplacianMask(image)
-    #laplacian = applyMask(image)
+    #laplacian = laplacianMask(image)
+    laplacian = applyMask(image)
 
     c = -1
 
