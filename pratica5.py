@@ -99,3 +99,18 @@ def removeNoise(image, dimensionMask=3):
     g = deleteColumns(g, dimensionMask - 1, len(g[0]))
 
     return g
+
+#3º step: Showing the results---------------------------------------------------
+
+transformedImage1 = removeNoise(originalImage, 3)
+transformedImage2 = removeNoise(originalImage, 5)
+
+#Converting the images to unsigned int
+originalImage = np.uint8(originalImage)
+transformedImage1 = np.uint8(transformedImage1)
+transformedImage2 = np.uint8(transformedImage2)
+
+imageComparison = np.hstack((originalImage, transformedImage1, transformedImage2))
+cv2.imshow('Imagem original vs 3x3 vs 5x5', imageComparison)
+cv2.imwrite('resultadoPratica5.jpg', imageComparison)
+cv2.waitKey(0)
