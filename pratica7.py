@@ -70,3 +70,57 @@ def dctCalculation (image):
             dctImage[p][q] = alphaP(p)*alphaQ(q)*dct(image, p, q)
 
     return dctImage
+
+#4º step: Use a % from dct and calculate the inverse DCT------------------------
+def getPercentOfDct(image, percent):
+    newImage = np.zeros(image.shape, dtype=np.float32)
+    M, N = image.shape
+    M2 = int(M * (percent/100.0))
+    N2 = int(N * (percent/100.0))
+    print "Nova dimensao", M2, N2
+    for i in range(M2):
+        for j in range(N2):
+            newImage[i][j] = image[i][j]
+
+    return newImage
+
+def iDct(dctImage, m, n):
+    value = 0.0
+
+    for p in range(M):
+        for q in range(N):
+            value += alphaP(p)*alphaQ(q) * dctImage[p][q] * math.cos( (math.pi * (2*m + 1) * p) / (2*M) ) * math.cos( (math.pi * (2*n + 1) * q) / (2*N) )
+
+    return value
+
+def iDctCalculation (dctImage):
+    iDctImage = np.zeros(dctImage.shape, dtype=np.float32)
+
+    print 'Iniciando da transformada inversa:'
+    for m in range(M):
+        for n in range(N):
+            iDctImage[m][n] = iDct(dctImage, m, n)
+
+    print iDctImage
+    return iDctImage
+
+
+#5º Step: Calling the functions-----------------------------------------------
+
+transformedImageDCT = dctCalculation(originalImage)
+partOfDct = getPercentOfDct(transformedImageDCT, 30)
+transformedImageIDCT = iDctCalculation(partOfDct)
+
+#6º step: Showing the results---------------------------------------------------
+
+#Showing the images
+plt.figure(1)
+plt.subplot(141),plt.imshow(originalImage, cmap = 'gray')
+plt.title('Imagem de entrada '), plt.xticks([]), plt.yticks([])
+plt.subplot(142),plt.imshow(transformedImageDCT, cmap = 'gray')
+plt.title('DCT'), plt.xticks([]), plt.yticks([])
+plt.subplot(143),plt.imshow(partOfDct, cmap = 'gray')
+plt.title('% da DCT'), plt.xticks([]), plt.yticks([])
+plt.subplot(144),plt.imshow(transformedImageIDCT, cmap = 'gray')
+plt.title('IDCT'), plt.xticks([]), plt.yticks([])
+plt.show()
