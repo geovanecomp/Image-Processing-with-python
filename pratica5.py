@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
+#This file is for remove noises from an image
+
 #To not abbreviate big matrices
 np.set_printoptions(threshold='nan')
 
@@ -100,7 +102,7 @@ def removeNoise(image, dimensionMask=3):
 
     return g
 
-#3º step: Showing the results---------------------------------------------------
+#4º step: Showing the results---------------------------------------------------
 
 transformedImage1 = removeNoise(originalImage, 3)
 transformedImage2 = removeNoise(originalImage, 5)

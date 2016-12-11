@@ -164,7 +164,7 @@ def sobel(image, dimensionMask=3):
 
     return sobelMask
 
-#-------------------------------------------------------------------------------
+#4º step: Main function---------------------------------------------------------
 
 def threshold(image, dimensionMask=3):
 
@@ -183,7 +183,7 @@ def threshold(image, dimensionMask=3):
     return transformedImage
 
 
-#3º step: Showing the results---------------------------------------------------
+#5º step: Showing the results---------------------------------------------------
 transformedImage = threshold(originalImage,5)
 #Converting the images to unsigned int
 originalImage = np.uint8(originalImage)
